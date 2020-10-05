@@ -58,12 +58,58 @@ def max_count_zero_one(a):
     return max_len, end
 
 
+def second_min(a):
+    """
+    second min in o(n) of unsorted array
+    :param a:
+    :return:
+    """
+    min1 = max(a)
+    min2 = max(a)
+    for item in a:
+        if item < min1:
+            min2 = min1
+            min1 = item
+            print(min1, min2)
+        elif item < min2 and item > min1:
+            min2 = item
+    return min2
 
 
+def subarray1(a):
+    """
+    check if subarray with zero sum exists or not
+    :param a:
+    :return:
+    """
+    if not a:
+        return "doesnt exist"
+    sum_list = 0
+    dict1 = {}
+    for i, item in enumerate(a):
+        sum_list += item
+        if sum_list not in dict1:
+            dict1[sum_list] = i
+        else:
+            return "exists at: " + str(dict1[sum_list] + 1) + " " + str(i)
+
+    return "doesnt exist"
 
 
+def sort_zero_ones_linear_time(a):
+    i = 0
+    j = 0
+    while i < len(a):
+        if a[i] == 0:
+            a[j] = 0
+            j += 1
+        i += 1
+    while j < len(a):
+        a[j] = 1
+        j += 1
+    print(a)
 
 if __name__ == "__main__":
     s = "fdca"
-    print(longest_alphabetic_substring(s))
+    print(sort_zero_ones_linear_time([1, 1, 0, 0,1,0,1,1]))
     pass

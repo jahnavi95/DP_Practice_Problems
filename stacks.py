@@ -55,7 +55,7 @@ def merge_overlapping_intervals(a):
 
 
 def duplicate_parenthesis_check(s1):
-    """"check if string contains duplicate parenthesiis. if  a string contains dup when same xprsn surrounded bt one than one parenthesis
+    """"check if string contains duplicate parenthesiis. if  a string contains dup when same xprsn surrounded by one than one parenthesis
     """
     s = deque()
     for item in s1:
