@@ -1,6 +1,6 @@
 Quality Practice Problems and their solution by me of
 
- DYANAMIC PROGRAMMING
+ DYNAMIC PROGRAMMING
  ARRAYS
  STRINGS
  LINKED LIST 
@@ -11,4 +11,5 @@ Quality Practice Problems and their solution by me of
  HEAPS
  MATRIX
  
- agar yaha tak pahuch chuke ho toh beta tum kaafi desperate ho. copy paste at ur own risk
+
+ab toh yahi bas ek rasta hai

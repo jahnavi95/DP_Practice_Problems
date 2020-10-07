@@ -109,7 +109,73 @@ def sort_zero_ones_linear_time(a):
         j += 1
     print(a)
 
+
+def kadane_Algorithm(a):
+    """"find maximum sub array sum
+    """
+    max_so_far = 0
+    max_ending_here = 0
+    for item in a:
+        max_ending_here += item
+
+        max_ending_here = max(max_ending_here, 0)
+        max_so_far = max(max_so_far,max_ending_here)
+
+    return max_so_far
+
+
+def circular_array_max_sum(a):
+    a = [-item for item in a]
+    neg_max = kadane_Algorithm(a)
+    a = [-item for item in a]
+    return max(kadane_Algorithm(a), sum(a) + neg_max)
+
+
+def min_sum_subarray_k_Size(a, k):
+    """"sliding  window
+    """
+    n = len(a)
+    if n < k:
+        return -1
+    res = 0
+    for i in range(0, k):
+        res += a[i]
+    curr_Sum = res
+    j = k
+    for j in range(k, n):
+        curr_Sum += a[j] - a[j - k]
+        res = min(res, curr_Sum)
+
+    return res
+
+
+def sum_subarray(a, n):
+    """"????????????????????find subarray having given sum   --------sliding window---o(n)------------
+    """
+
+    window_sum = 0
+    low = 0
+    high = 0
+    while low < len(a):
+
+        while high < len(a) and window_sum < n:
+            window_sum += a[high]
+            high = high +1
+        if window_sum == n:
+            print("found at", low, high-1)
+
+        window_sum -= a[low]
+        low = low+1
+    print(-1)
+
+
+    
+
+
+
+
+
 if __name__ == "__main__":
     s = "fdca"
-    print(sort_zero_ones_linear_time([1, 1, 0, 0,1,0,1,1]))
+    print(sum_subarray([2, 6, 0, 9, 7, 3, 1, 4, 1, 10],15))
     pass
