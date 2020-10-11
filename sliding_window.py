@@ -37,9 +37,33 @@ def important():
     """
 
 
+def check_string_validity(s):
+    if type(s) == str and s and s != "":
+        return True
+    return False
 
+
+def check_rotation(s1, s2):
+    if check_string_validity(s1) and check_string_validity(s2):
+        if len(s1) == len(s2):
+            s3 = s1 + s1
+            if s2 in s3 and s1 in s3:
+                return "rotation of each other"
+            return "not rotation of each other"
+        return "Strings not of equal length!!"
+    return "String not in proper format"
+
+
+def last_index(s, c):
+    if check_string_validity(s):
+        index = -1
+        for i, item in enumerate(s):
+            if item == c:
+                index = i
+        return index
+    return "string not in proper format"
 
 
 if __name__ == "__main__":
-    print(substring1("aabacbebebe", 3))
+    print(last_index("abbcb", "g"))
     pass

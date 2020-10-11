@@ -195,7 +195,7 @@ def longest_pal_sum_substring(s):
 
 
 def longest_substring_k_char(s, k):
-    """" Return longest substring containing k distinct chars
+    """" Return longest substring containing k distinct chars in  o(n2)
     """
     ending_index = -1
     max1 = -1
@@ -217,41 +217,51 @@ def longest_substring_k_char(s, k):
     return [ending_index, ending_index - max1 + 1], max1
 
 
-def removeDuplicates(S):
-    """"consecutive duplicates???????????????????????????????????????????????/
+def is_valid(a):
+    val = 0
+    for item in a:
+        if item != 0:
+            val += 1
+    return val
+
+
+def longest_substring_k_char1(s, k):
+    """" Return longest substring containing k distinct chars in  o(n)
     """
-    n = len(S)
 
-    # We don't need to do anything for
-    # empty or single character string.
-    if (n < 2):
-        return
+    start = 0
+    count = [0] * 256
+    max_len = 0
+    end = -1
+    for i, item in enumerate(s):
 
-    # j is used to store index is result
-    # string (or index of current distinct
-    # character)
-    j = 0
+        count[ord(item)] += 1
+        while is_valid(count) > k:
+            count[ord(s[start])] -= 1
+            start -= 1
 
-    # Traversing string
-    for i in range(n):
-
-        # If current character S[i]
-        # is different from S[j]
-        if (S[j] != S[i]):
-            j += 1
-            S[j] = S[i]
-
-            # Putting string termination
-    # character.
-    j += 1
-    S = S[:j]
-    return S
+        if i - start + 1 > max_len:
+            max_len = i - start + 1
+            end = i
 
 
-def check_palindrome(s):
-    """" ??????????????????
-    """
-    pass
+    return s[end-max_len: end +1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def window(s, pat):
@@ -398,14 +408,12 @@ def string3(s, k):
     pass
 
 
-
-def substring3(s,k):
+def substring3(s, k):
     """"Number of substrings with count of each character as k
     """
     freq = [0] * 26
     # for i,item in enumerate(s):
     pass
-
 
 
 def brackets_evaluation(a):
@@ -437,11 +445,176 @@ def brackets_evaluation(a):
     return final
 
 
+def inplace_removeAB_C(s):
+    s = list(s)
+    i = 0
+    k = 0
+    while i < len(s):
+        if s[i] == 'B' and k > 0 and s[k - 1] == 'A':
+            k -= 1
+            i = i + 1
+        elif s[i] == 'C':
+            i += 1
+        else:
+            s[k] = s[i]
+            k += 1
+            i += 1
+
+    return "".join(s[:k])
+
+
+def encoding(str1):
+    i = 0
+    encode = ""
+    while i < len(str1):
+        count = 1
+        while i < len(str1) - 1 and str1[i] == str1[i + 1]:
+            count += 1
+            i += 1
+
+        encode += str(count) + str1[i]
+        i = i + 1
+    return encode
+
+
+def construct_palindrome(s):
+    palind = []
+    dict1 = {}
+    mid = ""
+    for item in s:
+        if item not in dict1:
+            dict1[item] = 1
+        else:
+            dict1[item] += 1
+
+    flag = False
+    for item in dict1:
+        if dict1[item] % 2 == 0:
+            palind.extend([item] * (dict1[item] / 2))
+
+        else:
+            if not flag:
+                if dict1[item] > 2:
+                    palind.extend([item] * ((dict1[item] - 1) / 2))
+                mid = [item]
+            flag = True
+    print(palind)
+    return palind + mid + list(reversed(palind))
+
+
+def remove_spaces(s):
+    k = 0
+    i = 0
+    s = list(s)
+    while i < len(s):
+        if s[i] == " ":
+            i += 1
+        else:
+            s[k] = s[i]
+            k += 1
+            i += 1
+    print(s)
+    return s[:k]
+
+
+def remove_adjacent_dup(s):
+    k = 0
+    i = 0
+    s = list(s)
+    while i < len(s):
+        if s[i] == s[i + 1]:
+            i += 1
+        else:
+            s[k] = s[i]
+            k += 1
+            i += 1
+    print(s)
+    return s[:k]
+
+
+def check_string_validity(s):
+    if type(s) == str and s and s != "":
+        return True
+    return False
+
+
+def check_palindrome(s):
+    if check_string_validity(s):
+        i = 0
+        j = len(s) - 1
+        while i < j:
+            if s[i] == s[j]:
+                i += 1
+                j -= 1
+            else:
+                return "not palind"
+        return "palind"
+    return "string not in proper format"
+
+
+def expand_string(s, low, high):
+    while low >= 0 and high < len(s) and s[low] == s[high]:
+        low = low - 1
+        high = high + 1
+    return s[low + 1:high]
+
+
+def longest_palind(s):
+    max_len = 0
+    if check_string_validity(s):
+        for i in range(len(s)):
+            curr_str = expand_string(s, i, i)
+            if len(curr_str) > max_len:
+                max_len = curr_str
+            curr_str = expand_string(s, i, i + 1)
+            if len(curr_str) > max_len:
+                max_len = curr_str
+
+        return max_len
+    else:
+        return "string not in proper format"
+
+
+def longest_distinct_substring(s):
+    start = 0
+    if check_string_validity(s):
+        dict1 = {}
+        max_len = 0
+        max_str = ""
+        for i, item in enumerate(s):
+            if item in dict1:
+                start = max(start, dict1[item] + 1)
+            dict1[item] = i
+            if max_len < i - start + 1:
+                max_len = i - start + 1
+                max_str = s[start:i + 1]
+
+        return max_str
+    else:
+        return "not valid string"
+
+
+def target_sum(a, k):
+    if a:
+        dict1 = {}
+        for i, item in enumerate(a):
+            if item not in dict1:
+                dict1[item] = i
+            if k - item in dict1:
+                if i != dict1[k - item]:
+                    return [i, dict1[k - item]]
+        return "not present"
+    else:
+        return -1
+
+
+def product_array(a):
+    pass
 
 
 if __name__ == "__main__":
     # print(encoding("ab4c12ed3", 4))
     s = "this is a test string"
 
-    # print(string1("abcbaa",3))
+    print(longest_substring_k_char1("aabacbebebe", 3))
     pass

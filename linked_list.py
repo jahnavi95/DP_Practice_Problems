@@ -96,15 +96,17 @@ class LinkedList:
         pass
 
     def detect_loop(self):
-        slow_p = self.head
-        fast_p = self.head
-        while slow_p and fast_p and fast_p.next != None:
-            slow_p = slow_p.next
-            fast_p = fast_p.next.next
+        if self.linked_list_validation(self.head):
+            slow_p = self.head
+            fast_p = self.head
+            while slow_p and fast_p and fast_p.next != None:
+                slow_p = slow_p.next
+                fast_p = fast_p.next.next
 
-            if slow_p == fast_p:
-                return True
-        return False
+                if slow_p == fast_p:
+                    return slow_p
+            return "doesnt exist"
+        return "not valid"
 
     def loop_len(self):
         pass

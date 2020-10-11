@@ -150,32 +150,29 @@ def min_sum_subarray_k_Size(a, k):
 
 
 def sum_subarray(a, n):
-    """"????????????????????find subarray having given sum   --------sliding window---o(n)------------
+    """"longest subarray having given sum   --------sliding window---o(n)------------
     """
 
-    window_sum = 0
-    low = 0
-    high = 0
-    while low < len(a):
-
-        while high < len(a) and window_sum < n:
-            window_sum += a[high]
-            high = high +1
-        if window_sum == n:
-            print("found at", low, high-1)
-
-        window_sum -= a[low]
-        low = low+1
-    print(-1)
-
-
-    
+    start = 0
+    max_len = -1
+    sum1 = 0
+    start_index = -1
+    for i, item in enumerate(a):
+        sum1 += item
+        while sum1 > n:
+            sum1 -= a[start]
+            print("here1", sum1)
+            start += 1
+        if sum1 == n:
+            if max_len < i - start + 1:
+                max_len = i - start + 1
+                start_index = start
+    return max_len, a[start_index: start_index + max_len]
 
 
 
-
-
+    # return -
 if __name__ == "__main__":
     s = "fdca"
-    print(sum_subarray([2, 6, 0, 9, 7, 3, 1, 4, 1, 10],15))
+    print(sum_subarray([10, 5, 2, 7, 1, 9],15))
     pass
