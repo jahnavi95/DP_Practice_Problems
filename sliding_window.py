@@ -27,9 +27,20 @@ def substring1(s, k):
 
     return s[begin:end + 1]
 
-def substring2():
+def substring2(s):
     """" longest substring without repeating characters ????????????????
     """
+    start = 0
+    dict1 = {}
+    for i, item in enumerate(s):
+
+        if item in s:
+            start = max(start,dict1[item])
+
+        dict1[item] = i
+
+
+
     pass
 
 def important():

@@ -12,7 +12,7 @@ def subset_sum(a, sum):
             else:
                 t[i][j] = t[i-1][j]
 
-    return t[i][j]
+    return t[n][s]
 
 
 

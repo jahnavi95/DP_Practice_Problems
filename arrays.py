@@ -170,9 +170,25 @@ def sum_subarray(a, n):
     return max_len, a[start_index: start_index + max_len]
 
 
+def equilibrium_index(a):
+    """"beautiful o(n) solution
+    """
+    totalsum = sum(a)
+    leftsum = 0
+    for i, item in enumerate(a):
+        totalsum -= item
 
-    # return -
+        if leftsum == totalsum:
+            return i
+
+        leftsum += item
+
+
+
+
+
+
 if __name__ == "__main__":
     s = "fdca"
-    print(sum_subarray([10, 5, 2, 7, 1, 9],15))
+    print(equilibrium_index([-7, 1, 5, 2, -4, 3, 0]))
     pass

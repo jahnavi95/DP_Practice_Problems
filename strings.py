@@ -2,21 +2,31 @@ from collections import deque
 
 
 def longest_alphabetic_substring(s):
-    """" longest ascending substring
+    """" longest ascending substring o(n2)
     wrong logic doesnnt work for efyzabc
     """
-    start_index = 0
-    end_index = 0
-    for i in range(len(s) - 1):
-        if s[i] < s[i + 1]:
-            end_index = i + 1
+    max_len = 0
+    index1 = -1
+    end = 0
+    for i, item in enumerate(s):
+        end = i
+        while end < len(s) - 1 and s[end] < s[end + 1]:
+            end += 1
 
-        else:
-            start_index = i + 1
-    if end_index == 0:
-        return -1
-    print(end_index, start_index)
-    return end_index - start_index + 1
+        if end - i + 1 > max_len:
+            max_len = end - i + 1
+            index1 = end
+    return index1, max_len
+
+#
+# def sliding_window1(s):
+#     end_index = -1
+#     max_len = 0
+#     i = 0
+#     while i < len(s):
+#
+
+
 
 
 def expand(str1, low, high, s):
@@ -244,24 +254,7 @@ def longest_substring_k_char1(s, k):
             max_len = i - start + 1
             end = i
 
-
-    return s[end-max_len: end +1]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return s[end - max_len: end + 1]
 
 
 def window(s, pat):
@@ -612,9 +605,102 @@ def product_array(a):
     pass
 
 
+def lcs(x, y):
+    m = len(x)
+    n = len(y)
+    t = [[0 for i in range(m + 1)] for j in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+
+            if y[i - 1] == x[j - 1]:
+                t[i][j] = t[i - 1][j - 1] + 1
+            else:
+                t[i][j] = max(t[i - 1][j], t[i][j - 1])
+
+    return t[n][m]
+
+
+def longest_plaindromic_subs(x):
+    y = str(reversed(x))
+    m = len(x)
+    n = len(y)
+    t = [[0 for i in range(m + 1)] for j in range(n + 1)]
+
+    for i in range(n + 1):
+        for j in range(m + 1):
+            if x[j - 1] == y[i - 1]:
+                t[i][j] = t[i - 1][j - 1] + 1
+            else:
+                t[i][j] = max(t[i - 1][j], t[i][j - 1])
+
+    return t[n][m]
+
+
+def three_sum(a, k):
+    a.sort()
+    n = len(a)
+    for i in range(0, n - 2):
+        l = i + 1
+        r = n - 1
+        while l < r:
+            if (a[l] + a[i] + a[r] == k):
+                return [a[l], a[i], a[r]]
+
+            elif a[l] + a[i] + a[r] < k:
+                l += 1
+            else:
+                r -= 1
+
+
+def stock_selling(a):
+    def stockBuySell(price, n):
+
+        # Prices must be given for at least two days
+        if (n == 1):
+            return
+
+        # Traverse through given price array
+        i = 0
+        while (i < (n - 1)):
+
+            # Find Local Minima
+            # Note that the limit is (n-2) as we are
+            # comparing present element to the next element
+            while ((i < (n - 1)) and
+                   (price[i + 1] <= price[i])):
+                i += 1
+
+            # If we reached the end, break
+            # as no further solution possible
+            if (i == n - 1):
+                break
+
+            # Store the index of minima
+            buy = i
+            i += 1
+
+            # Find Local Maxima
+            # Note that the limit is (n-1) as we are
+            # comparing to previous element
+            while ((i < n) and (price[i] >= price[i - 1])):
+                i += 1
+
+            # Store the index of maxima
+            sell = i - 1
+
+            print("Buy on day: ", buy, "\t",
+                  "Sell on day: ", sell)
+
+
+def four_sum(a, k):
+
+    pass
+
+
 if __name__ == "__main__":
     # print(encoding("ab4c12ed3", 4))
     s = "this is a test string"
 
-    print(longest_substring_k_char1("aabacbebebe", 3))
+    print(longest_distinct_substring("geeksforgeeks"))
     pass

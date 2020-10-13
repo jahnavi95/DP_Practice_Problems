@@ -93,6 +93,7 @@ class LinkedList:
         return self.reverse()
 
     def reverse_in_k(self):
+
         pass
 
     def detect_loop(self):
@@ -114,38 +115,61 @@ class LinkedList:
     def remove_loop(self):
         pass
 
-    def nth_from_end(self):
+    def nth_from_end(self, n):
+        first_ptr = self.head
+        sec_ptr = self.head
+        count = 0
+        while count < n:
+            if first_ptr is None:
+                return -1
+            first_ptr = first_ptr.next
+            count += 1
+
+        if first_ptr is None:
+            return sec_ptr.data
+        else:
+            while first_ptr is not None:
+                first_ptr = first_ptr.next
+                sec_ptr = sec_ptr.next
+        return sec_ptr.data
+        # pass
+
+    def segregate_even_odd(self):
+        # temp = self.head
+        # dummy = Node(0)
+        #
+        # while temp.next:
+        #     if temp.data % 2 == 0:
+        #         temp = temp.next
+        #     else:
+        #         dummy.next
+
         pass
+
+    def sort_0_1_2(self):
+        temp = self.head
+        count = [0, 0, 0]
+        while temp:
+            count[temp.data] += 1
+            temp = temp.next
+        ptr = self.head
+        i = 0
+        while ptr:
+            # print(i)
+            if count[i] == 0:
+                i += 1
+            else:
+                ptr.data = i
+                count[i] -= 1
+                ptr = ptr.next
+
+        # print(count)
+
 
 
 """"
 circular Linked list
 """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     llist = LinkedList()
@@ -155,14 +179,14 @@ if __name__ == '__main__':
     # llist.push_front(9)
     llist.push_front(1)
     llist.push_front(2)
-    llist.push_front(3)
-    llist.push_front(4)
+    # llist.push_front(2)
+    # llist.push_front(4)
     llist.printList()
     # llist.remove_duplicates_sorted_ll()
     # llist.reverse()
     print("---------------")
     # llist.add_one_ll()
 
-    llist.printList()
-
+    # llist.sort_0_1_2()
+    print(llist.nth_from_end(3))
     # print(llist)
